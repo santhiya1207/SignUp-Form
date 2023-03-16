@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Signup Form</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+      .container {
+        width: 400px;
+        border: 1px solid grey;
+        border-radius: 5px;
+        margin: 40px auto;
+      }
+      .heading {
+        text-align: center;
+        margin-top: 30px;
+        font-weight: 700;
+      }
+      .signupForm {
+        margin: 20px 20px;
+        line-height: 3.2rem;
+      }
+      .button{
+        margin: 20px auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2 class="heading">Sign Up</h2>
+      <form class="signupForm" onsubmit="return signupValidation()">
+        <div class="form-group">
+          <label for="username">Username:</label>
+          <input type="text" id="username" class="form-control" />
+          <span id="usernameError" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" class="form-control" />
+          <span id="emailError" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" id="password" class="form-control" />
+          <span id="passwordError" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password:</label>
+          <input type="password" id="confirmPassword" class="form-control" />
+          <span id="confirmpasswordError" class="text-danger"></span>
+        </div>
+        <button type="submit" class="form-control btn btn-primary button">
+          SIGN UP
+        </button>
+      </form>
+    </div>
+
+    <script>
+      let username = document.getElementById("username");
+      let email = document.getElementById("email");
+      let password = document.getElementById("password");
+      let confirmPassword = document.getElementById("confirmPassword");
+
+    let usernameLimit = /^[a-zA-Z]{3,25}$/;
+    
+        function usernameValidation(checkusername) {
+        if (!usernameLimit.test(checkusername)) {
+          document.getElementById("usernameError").innerHTML =
+            "Username must be between 3 and 25 characters";
+          document.getElementById("username").style.borderColor = "red";
+        } else {
+          document.getElementById("usernameError").innerHTML = "";
+          document.getElementById("username").style.borderColor = "green";
+        }
+      }
+      username.addEventListener("input", () => {
+        usernameValidation(username.value);
+      });
+
+      let emailLimit = /\S+@\S+\.\S+/;
+      function emailValidation(checkemail) {
+        if (!checkemail.match(emailLimit)) {
+          document.getElementById("emailError").innerHTML =
+            "Please enter Valid email address";
+          document.getElementById("email").style.borderColor = "red";
+        } else {
+          document.getElementById("emailError").innerHTML = "";
+          document.getElementById("email").style.borderColor = "green";
+        }
+      }
+      email.addEventListener("input", () => {
+        emailValidation(email.value);
+      });
+
+      let passwordLimit = new RegExp(
+        "(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[#?!@$%^&*-])(?=.{8,})"
+      );
+      function passwordValidation(checkpassword) {
+        if (!passwordLimit.test(checkpassword)) {
+          document.getElementById("passwordError").innerHTML =
+            "Password must has at least 8 characters that include at least 1 lowecase character, 1 uppercase character, 1 number, and 1 special character in (!@#$%^&*)";
+          document.getElementById("password").style.borderColor = "red";
+        } else {
+          document.getElementById("passwordError").innerHTML = "";
+          document.getElementById("password").style.borderColor = "green";
+        }
+      }
+      password.addEventListener("input", () => {
+        passwordValidation(password.value);
+      });
+
+      function confirmpasswordValidation(comfirmpassword) {
+        if (password.value != comfirmpassword) {
+          document.getElementById("confirmpasswordError").innerHTML =
+            "Please enter the password again";
+          document.getElementById("confirmPassword").style.borderColor = "red";
+        } else {
+          document.getElementById("confirmpasswordError").innerHTML = "";
+          document.getElementById("confirmPassword").style.borderColor =
+            "green";
+        }
+      }
+      confirmPassword.addEventListener("input", () => {
+        confirmpasswordValidation(confirmPassword.value);
+      });
+
+      function signupValidation(){
+        if(username.value.length >0 && email.value.length >0 && password.value.length >0 && confirmPassword.value.length >0){
+            alert("Form Submitted")
+        }
+        else{
+            alert("Not submitted")
+        }
+      }
+      
+    </script>
+  </body>
+</html>
